@@ -18,13 +18,15 @@
 #include "vex.h"
 #include <cmath>
 using namespace vex;
-
+// Field size is 12 by 12 feet
+private static final int fieldSpecs = 12;
 competition Competition;
 void pre_auton(void){
   vexcodeInit();
+  
 }
 void autonomous(void){
-
+  
 }
 void usercontrol(void){
   double turnImportance = 0.5;
