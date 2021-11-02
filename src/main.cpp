@@ -13,6 +13,9 @@
 // Controller1          controller                    
 // RightMotor           motor         1               
 // LeftMotor            motor         9               
+// wrist                motor         7               
+// arm                  motor         10              
+// claw                 motor         4               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -38,8 +41,34 @@ void usercontrol(void){
 
     LeftMotor.spin(forward, fowardVolts - turnVolts, voltageUnits::volt);
     RightMotor.spin(forward, fowardVolts + turnVolts, voltageUnits::volt);
-
-
+    // arm
+    if (Controller1.ButtonL2.pressing() == true){
+      arm.spin(reverse);
+    }
+    else if(Controller1.ButtonL1.pressing() == true){
+      arm.spin(forward);
+    }
+    else{
+      arm.stop();
+    }
+    // wrist
+    if (Controller1.ButtonX.pressing() == true){
+      wrist.spin(forward);
+    }
+    else if(Controller1.ButtonB.pressing() == true){
+      wrist.spin(reverse);
+    }
+    else{
+      wrist.stop();
+    }
+    // claw
+    if (Controller1.ButtonR2.pressing()){
+      claw.spin(forward);
+    }
+    if (Controller1.ButtonR1.pressing()){
+      claw.spin(reverse);
+    }
+    //Don't want motor to stop moving when you let go.
     wait(20, msec);
   }
 }
