@@ -1,3 +1,30 @@
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightMotor           motor         1               
+// LeftMotor            motor         9               
+// arm                  motor         10              
+// wrist                motor         7               
+// claw                 motor         4               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightMotor           motor         1               
+// LeftMotor            motor         9               
+// arm                  motor         10              
+// wrist                motor         7               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightMotor           motor         1               
+// LeftMotor            motor         9               
+// arm                  motor         10              
+// ---- END VEXCODE CONFIGURED DEVICES ----
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
@@ -41,6 +68,8 @@ void usercontrol(void){
 
     LeftMotor.spin(forward, fowardVolts - turnVolts, voltageUnits::volt);
     RightMotor.spin(forward, fowardVolts + turnVolts, voltageUnits::volt);
+
+
     // arm
     if (Controller1.ButtonL2.pressing() == true){
       arm.spin(reverse);
@@ -49,8 +78,10 @@ void usercontrol(void){
       arm.spin(forward);
     }
     else{
-      arm.stop();
+      arm.stop(brakeType::hold);
     }
+
+
     // wrist
     if (Controller1.ButtonX.pressing() == true){
       wrist.spin(forward);
@@ -59,8 +90,9 @@ void usercontrol(void){
       wrist.spin(reverse);
     }
     else{
-      wrist.stop();
+      wrist.stop(brakeType::hold);
     }
+
     // claw
     if (Controller1.ButtonR2.pressing()){
       claw.spin(forward);
@@ -68,8 +100,10 @@ void usercontrol(void){
     if (Controller1.ButtonR1.pressing()){
       claw.spin(reverse);
     }
+
     //Don't want motor to stop moving when you let go.
     wait(20, msec);
+    
   }
 }
 int main() {

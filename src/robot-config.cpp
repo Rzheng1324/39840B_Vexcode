@@ -11,6 +11,9 @@ brain  Brain;
 controller Controller1 = controller(primary);
 motor RightMotor = motor(PORT1, ratio18_1, false);
 motor LeftMotor = motor(PORT9, ratio18_1, false);
+motor arm = motor(PORT10, ratio18_1, false);
+motor wrist = motor(PORT7, ratio18_1, false);
+motor claw = motor(PORT4, ratio18_1, false);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
