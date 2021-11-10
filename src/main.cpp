@@ -85,16 +85,15 @@ void pre_auton(void){
   vexcodeInit();
 }
 void autonomous(void){
-
-  arm.setPosition(0,degrees);
-  while(arm.position(degrees) > -1287.6){
-    arm.spinFor(reverse, 10,degrees);
-  std::cout << arm.position(degrees) << std::endl; 
-
+  LeftMotor.startRotateFor(5.81, rotationUnits::rev);
+  RightMotor.startRotateFor(5.81, rotationUnits::rev);
+  claw.spin(forward);
+  LeftMotor.startRotate(-5.81, rotationUnits::rev);
+  RightMotor.startRotateFor(-5.81, rotationUnits::rev);
+  for (int i = 0; i < 20; i++){
+    LeftMotor.spin(forward);
+    RightMotor.spin(reverse);
   }
-  wait(10, seconds);
-
-
 }
 void usercontrol(void){
   //double turnImportance = 0.5;
