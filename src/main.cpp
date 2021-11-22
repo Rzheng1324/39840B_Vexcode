@@ -2,6 +2,26 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
+// RightMotor           motor         20              
+// LeftMotor            motor         10              
+// arm                  motor         1               
+// wrist                motor         7               
+// claw                 motor         4               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightMotor           motor         20              
+// LeftMotor            motor         9               
+// arm                  motor         1               
+// wrist                motor         7               
+// claw                 motor         4               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
 // RightMotor           motor         2               
 // LeftMotor            motor         9               
 // arm                  motor         1               
