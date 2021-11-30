@@ -1,79 +1,4 @@
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// RightMotor           motor         2               
-// LeftMotor            motor         9               
-// arm                  motor         1               
-// wrist                motor         7               
-// claw                 motor         4               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// RightMotor           motor         2               
-// LeftMotor            motor         9               
-// arm                  motor         10              
-// wrist                motor         7               
-// claw                 motor         4               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// RightMotor           motor         2               
-// LeftMotor            motor         9               
-// arm                  motor         10              
-// wrist                motor         7               
-// claw                 motor         4               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// RightMotor           motor         1               
-// LeftMotor            motor         9               
-// arm                  motor         10              
-// wrist                motor         7               
-// claw                 motor         4               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// RightMotor           motor         1               
-// LeftMotor            motor         9               
-// arm                  motor         10              
-// wrist                motor         7               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// RightMotor           motor         1               
-// LeftMotor            motor         9               
-// arm                  motor         10              
-// ---- END VEXCODE CONFIGURED DEVICES ----
-/*----------------------------------------------------------------------------*/
-/*                                                                            */
-/*    Module:       main.cpp                                                  */
-/*    Author:       ryanzheng                                                 */
-/*    Created:      Tue Sep 28 2021                                           */
-/*    Description:  V5 project                                                */
-/*                                                                            */
-/*----------------------------------------------------------------------------*/
 
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// RightMotor           motor         1               
-// LeftMotor            motor         9               
-// wrist                motor         7               
-// arm                  motor         10              
-// claw                 motor         4               
-// ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
 #include <cmath>
@@ -112,10 +37,10 @@ void usercontrol(void){
     Brain.Screen.newLine();
 
     // arm
-    if (Controller1.ButtonL2.pressing() == true){
+    if (Controller1.ButtonL1.pressing() == true){
       arm.spin(reverse, 100, vex::velocityUnits::pct);
     }
-    else if(Controller1.ButtonL1.pressing() == true){
+    else if(Controller1.ButtonL2.pressing() == true){
       arm.spin(forward, 100, velocityUnits::pct);
     }
     else{
@@ -123,27 +48,17 @@ void usercontrol(void){
     }
 
 
-/*
-    // wrist
-    if (Controller1.ButtonX.pressing() == true){
-      wrist.spin(forward);
-    }
-    else if(Controller1.ButtonB.pressing() == true){
-      wrist.spin(reverse);
-    }
-    else{
-      wrist.stop(brakeType::hold);
-    }
-
-
     // claw
     if (Controller1.ButtonR2.pressing()){
+      arm.spin(reverse, 100, vex::velocityUnits::pct);
       claw.spin(forward);
     }
     if (Controller1.ButtonR1.pressing()){
       claw.spin(reverse);
     }
-    */
+    else{
+      claw.stop(brakeType::coast);
+    }
 
     //Don't want motor to stop moving when you let go.
     wait(20, msec);
