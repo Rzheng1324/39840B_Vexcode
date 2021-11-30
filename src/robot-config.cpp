@@ -11,7 +11,7 @@ brain  Brain;
 controller Controller1 = controller(primary);
 motor RightMotor = motor(PORT20, ratio18_1, false);
 motor LeftMotor = motor(PORT10, ratio18_1, false);
-motor arm = motor(PORT1, ratio18_1, false);
+motor arm = motor(PORT12, ratio18_1, false);
 motor wrist = motor(PORT7, ratio18_1, false);
 motor claw = motor(PORT4, ratio18_1, false);
 
