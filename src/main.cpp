@@ -1,6 +1,15 @@
-
-
 #include "vex.h"
+
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// claw                 motor         4               
+// arm                  motor         12              
+// LeftMotor            motor         10              
+// RightMotor           motor         20              
+// Vision1              vision        1               
+// ---- END VEXCODE CONFIGURED DEVICES ----
 #include <cmath>
 #include <iostream>
 using namespace vex;
@@ -10,14 +19,31 @@ void pre_auton(void){
   vexcodeInit();
 }
 void autonomous(void){
+  /*
   LeftMotor.startRotateFor(5.81, rotationUnits::rev);
   RightMotor.startRotateFor(5.81, rotationUnits::rev);
   claw.spin(forward);
-  LeftMotor.startRotate(-5.81, rotationUnits::rev);
+  LeftMotor.startRotateFor(-5.81, rotationUnits::rev);
   RightMotor.startRotateFor(-5.81, rotationUnits::rev);
   for (int i = 0; i < 20; i++){
     LeftMotor.spin(forward);
     RightMotor.spin(reverse);
+  }
+  */
+  while (true){
+    LeftMotor.spin(forward);
+    RightMotor.spin(reverse);
+    if (Vision1.objectCount > 0){
+      
+      for (int i = 0; i < Vision1.objectCount; i++){
+        if (20 > Vision1.objects[i].centerX - 157.2 > -20){
+          LeftMotor.stop();
+          RightMotor.stop();
+          LeftMotor.spin(forward);
+          RightMotor.spin(forward);
+        }
+      }
+    }
   }
 }
 void usercontrol(void){
@@ -50,14 +76,11 @@ void usercontrol(void){
 
     // claw
     if (Controller1.ButtonR2.pressing()){
-      arm.spin(reverse, 100, vex::velocityUnits::pct);
+      arm.spin(reverse, 0.01, vex::velocityUnits::pct);
       claw.spin(forward);
     }
     if (Controller1.ButtonR1.pressing()){
       claw.spin(reverse);
-    }
-    else{
-      claw.stop(brakeType::coast);
     }
 
     //Don't want motor to stop moving when you let go.
@@ -77,3 +100,4 @@ int main() {
   }
   
 }
+
