@@ -3,12 +3,11 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
 // claw                 motor         4               
-// arm                  motor         12              
 // LeftMotor            motor         10              
+// arm                  motor         12              
 // RightMotor           motor         20              
-// Vision1              vision        1               
+// Controller1          controller                    
 // ---- END VEXCODE CONFIGURED DEVICES ----
 #include <cmath>
 #include <iostream>
@@ -19,18 +18,40 @@ void pre_auton(void){
   vexcodeInit();
 }
 void autonomous(void){
-  /*
-  LeftMotor.startRotateFor(5.81, rotationUnits::rev);
-  RightMotor.startRotateFor(5.81, rotationUnits::rev);
-  claw.spin(forward);
-  LeftMotor.startRotateFor(-5.81, rotationUnits::rev);
-  RightMotor.startRotateFor(-5.81, rotationUnits::rev);
-  for (int i = 0; i < 20; i++){
-    LeftMotor.spin(forward);
-    RightMotor.spin(reverse);
+  arm.setPosition(0, degrees);
+  while(1){
+    arm.setVelocity(300, percent);
+   /* while(arm.position(degrees) > 0){
+      LeftMotor.stop();
+      RightMotor.stop();
+      arm.spin(forward);
+      
+    }*/
+    arm.spin(forward);
+    Brain.Screen.print(arm.position(degrees));
+    Brain.Screen.print("   ");
+    if (arm.position(degrees) > 1440 * 7 + 180){
+      arm.stop();
+      claw.spin(reverse);
+      LeftMotor.spin(forward);
+      claw.spin(forward);
+      break;
+    }
+    wait(100, msec);
   }
-  */
-  while (true){
+  
+
+  //LeftMotor.startRotateFor(5.81, rotationUnits::rev);
+ //RightMotor.startRotateFor(5.81, rotationUnits::rev);
+  claw.spin(forward);
+  //LeftMotor.startRotateFor(-5.81, rotationUnits::rev);
+  //RightMotor.startRotateFor(-5.81, rotationUnits::rev);
+  //for (int i = 0; i < 20; i++){
+    //LeftMotor.spin(forward);
+    //RightMotor.spin(reverse);
+  //}
+  
+  /*while (true){
     LeftMotor.spin(forward);
     RightMotor.spin(reverse);
     if (Vision1.objectCount > 0){
@@ -44,7 +65,7 @@ void autonomous(void){
         }
       }
     }
-  }
+  }*/
 }
 void usercontrol(void){
   //double turnImportance = 0.5;
@@ -100,4 +121,3 @@ int main() {
   }
   
 }
-
