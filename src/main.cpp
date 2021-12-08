@@ -5,9 +5,10 @@
 // [Name]               [Type]        [Port(s)]
 // claw                 motor         4               
 // LeftMotor            motor         10              
-// arm                  motor         12              
 // RightMotor           motor         20              
+// arm                  motor         12              
 // Controller1          controller                    
+// MotorGroup17         motor_group   17, 11          
 // ---- END VEXCODE CONFIGURED DEVICES ----
 #include <cmath>
 #include <iostream>
@@ -20,7 +21,9 @@ void pre_auton(void){
 void autonomous(void){
   arm.setPosition(0, degrees);
   while(1){
-    arm.setVelocity(300, percent);
+    arm.setVelocity(900, percent);
+    LeftMotor.setVelocity(150, percent);
+    RightMotor.setVelocity(300, percent);
    /* while(arm.position(degrees) > 0){
       LeftMotor.stop();
       RightMotor.stop();
@@ -31,14 +34,19 @@ void autonomous(void){
     Brain.Screen.print(arm.position(degrees));
     Brain.Screen.print("   ");
     if (arm.position(degrees) > 1440 * 7 + 180){
+      motor_group mo = motor_group(LeftMotor, RightMotor);
+      RightMotor = motor(PORT20, ratio18_1, true);
       arm.stop();
       claw.spin(reverse);
-      LeftMotor.spin(forward);
-      claw.spin(forward);
+      //LeftMotor.rotateFor(-5.81, rotationUnits::rev, false);
+      mo.rotateFor(5.81, rotationUnits::rev, false);
+      //RightMotor.rotateFor(5.81, rotationUnits::rev, false);
+      claw.spin(reverse);
       break;
     }
     wait(100, msec);
   }
+  RightMotor = motor(PORT20, ratio18_1, false);
   
 
   //LeftMotor.startRotateFor(5.81, rotationUnits::rev);
