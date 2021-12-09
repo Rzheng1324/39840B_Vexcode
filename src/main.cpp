@@ -22,8 +22,8 @@ void autonomous(void){
   arm.setPosition(0, degrees);
   while(1){
     arm.setVelocity(900, percent);
-    LeftMotor.setVelocity(150, percent);
-    RightMotor.setVelocity(300, percent);
+    //LeftMotor.setVelocity(100, percent);
+    //RightMotor.setVelocity(900, percent);
    /* while(arm.position(degrees) > 0){
       LeftMotor.stop();
       RightMotor.stop();
@@ -34,24 +34,41 @@ void autonomous(void){
     Brain.Screen.print(arm.position(degrees));
     Brain.Screen.print("   ");
     if (arm.position(degrees) > 1440 * 7 + 180){
-      motor_group mo = motor_group(LeftMotor, RightMotor);
-      RightMotor = motor(PORT20, ratio18_1, true);
+      RightMotor.setVelocity(300, percent);
+      //RightMotor = motor(PORT20, ratio18_1, true);
+    //  motor_group mo = motor_group(LeftMotor, RightMotor);
+      
       arm.stop();
       claw.spin(reverse);
       //LeftMotor.rotateFor(-5.81, rotationUnits::rev, false);
-      mo.rotateFor(5.81, rotationUnits::rev, false);
+     // mo.rotateFor(5.81, rotationUnits::rev, false);
+      while (LeftMotor.position(rotationUnits::rev) <2 && RightMotor.position(rotationUnits::rev) < 2){
+        LeftMotor.spin(forward, 100, voltageUnits::volt);
+        RightMotor.spin(forward, -100, voltageUnits::volt);
+      }
+      //LeftMotor.spinFor(forward, 5.81, rotationUnits::rev);
+      //RightMotor.spinFor(reverse, 5.81, rotationUnits::rev, false);
+      //LeftMotor.spinFor(forward, 5.81, rotationUnits::rev, false);
       //RightMotor.rotateFor(5.81, rotationUnits::rev, false);
       claw.spin(reverse);
       break;
     }
+    claw.spin(forward);
     wait(100, msec);
+    //RightMotor.spinFor(forward, 5.81, rotationUnits::rev, false);
+    //LeftMotor.spinFor(reverse, 5.81, rotationUnits::rev, false);
   }
   RightMotor = motor(PORT20, ratio18_1, false);
   
-
+  wait(1, sec);
   //LeftMotor.startRotateFor(5.81, rotationUnits::rev);
  //RightMotor.startRotateFor(5.81, rotationUnits::rev);
   claw.spin(forward);
+  wait(1, sec);
+  while (LeftMotor.position(rotationUnits::rev) <1 && RightMotor.position(rotationUnits::rev) < 1){
+        LeftMotor.spin(forward, -10, voltageUnits::volt);
+        RightMotor.spin(forward, 10, voltageUnits::volt);
+  }
   //LeftMotor.startRotateFor(-5.81, rotationUnits::rev);
   //RightMotor.startRotateFor(-5.81, rotationUnits::rev);
   //for (int i = 0; i < 20; i++){
@@ -78,7 +95,8 @@ void autonomous(void){
 void usercontrol(void){
   //double turnImportance = 0.5;
   while (1){
-
+    LeftMotor.setVelocity(200, percent);
+    RightMotor.setVelocity(200, percent);
     double turnVal = -((Controller1.Axis1.position(percent)));
     double fowardVal = ((Controller1.Axis3.position(percent)));
 
@@ -90,7 +108,7 @@ void usercontrol(void){
 
     Brain.Screen.print(LeftMotor.power());
     Brain.Screen.newLine();
-
+    arm.setVelocity(900, percent);
     // arm
     if (Controller1.ButtonL1.pressing() == true){
       arm.spin(reverse, 100, vex::velocityUnits::pct);
@@ -106,10 +124,10 @@ void usercontrol(void){
     // claw
     if (Controller1.ButtonR2.pressing()){
       arm.spin(reverse, 0.01, vex::velocityUnits::pct);
-      claw.spin(forward);
+      claw.spin(forward);//200, percent);
     }
     if (Controller1.ButtonR1.pressing()){
-      claw.spin(reverse);
+      claw.spin(reverse);//, 200, percent);
     }
 
     //Don't want motor to stop moving when you let go.
