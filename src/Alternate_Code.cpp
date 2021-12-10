@@ -75,7 +75,9 @@ void autonomous(void){
 void usercontrol(void){
   //double turnImportance = 0.5;
   while (1){
-
+    arm.setVelocity(900, percent);
+    LeftMotor.setVelocity(200, percent);
+    RightMotor.setVelocity(200, percent);
     double turnVal = -((Controller1.Axis1.position(percent)));
     double fowardVal = ((Controller1.Axis3.position(percent)));
 
