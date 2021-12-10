@@ -20,6 +20,8 @@ void pre_auton(void){
 }
 void autonomous(void){
   arm.setPosition(0, degrees);
+  LeftMotor.setPosition(0, rotationUnits::rev);
+  RightMotor.setPosition(0, rotationUnits::rev);
   while(1){
     arm.setVelocity(900, percent);
     //LeftMotor.setVelocity(100, percent);
